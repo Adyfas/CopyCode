@@ -2,6 +2,8 @@ Hallo bro script ini untuk mengambil kode kode yang ada di website contohnya HTM
 script ini digunakan untuk kebaikan bre misalnya mau contek websitenya teman Astaghfirullah jangan di contohnya
 atai bisa juga misalnya kamu nemuin ini website itu phissing kamu bisa lacak yang membuat link phissing itu yaa!!
 
+pip install requirement.txt
+
 python main.py -h {untuk meminta bantuan}
 
 python main.py -w https://web.com {untuk ambil kode html,css,Javascript dan akan melacak dia di mana hehe}
