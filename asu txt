@@ -1,0 +1,7 @@
+pip install socket
+pip install requests
+pip install sys
+pkg install wget
+brew install wget
+
+
