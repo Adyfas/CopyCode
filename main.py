@@ -1,71 +1,115 @@
-#  Create by adyfas
-#  https://github.com/adyfas
-#  For fun (:
-
-
-import socket
-import json
-import requests
-from bs4 import BeautifulSoup
 import argparse
+import os
+import subprocess
+import sys
+import requests
+import socket
+from bs4 import BeautifulSoup
+import time
 
-def dapatkan_info_ip(alamat_ip):
-    url_info_ip = f"https://ipinfo.io/{alamat_ip}/json"
-    respons = requests.get(url_info_ip)
-    info_ip = json.loads(respons.text)
-    return info_ip
+hijau = "\033[1;92m"
+putih = "\033[1;97m"
+abu = "\033[1;90m"
+kuning = "\033[1;93m"
+ungu = "\033[1;95m"
+merah = "\033[1;91m"
+biru = "\033[1;96m"
 
-def tampilkan_info_ip(info_ip):
-    print("\nInformasi IP:")
-    for kunci, nilai in info_ip.items():
-        print(f"{kunci}: {nilai}")
+required_modules = ['argparse', 'requests', 'socket', 'time']
 
-def dapatkan_konten_web(url):
-    respons = requests.get(url)
-    return respons.text
+def modules():
+    for module in required_modules:
+        try:
+            __import__(module)
+        except ImportError:
+            print(f"Modul {module} belum di intall beruntung gw baik ge installin ok")
+            wasu(f'{biru}Install.........{putih}')
+            os.system(f"pip install {module}")
+            os.system(f"pip install -r asu.txt")
+            
 
-def simpan_ke_file(konten, nama_file):
-    with open(nama_file, 'w', encoding='utf-8') as file:
-        file.write(konten)
+def judul(url):
+    try:
+        response = requests.get(url)
+        if response.status_code == 200:
+            soup = BeautifulSoup(response.text, 'html.parser')
+            title = soup.title.string
+            return title
+        else:
+            print(f"{merah}Gak ada judul kayanya nih webnya bro soalnya requestnya ", response.status_code, "bro!!", putih)
+            return None
+    except Exception as e:
+        print("Error:", e)
+        return None
 
-def dapatkan_header_keamanan(url):
-    respons = requests.get(url)
-    header = respons.headers
-    header_keamanan = header.get('X-Swag-Security', 'Header Tidak Ditemukan')
-    return header_keamanan
+def banternet():
+    try:
+        socket.create_connection(('www.google.com', 80))
+        return True
+    except OSError:
+        return False
 
-def utama():
-    parser = argparse.ArgumentParser(description='Ambil konten web dan header keamanan.')
-    parser.add_argument('-w', '--website', help='URL Website atau URL phissing yang ingin kalian lihat kodenya', required=True)
+def wasu(s):
+    for c in s + "\n":
+        sys.stdout.write(c)
+        sys.stdout.flush()
+        time.sleep(0.050)
+
+def kirik(url):
+    if not banternet():
+        wasu(f'{merah}Elu Kaga Ada Akses Internet Cuuyyyy Coba Sambungin Dulu Terus Jalanin Lagi Ya Asu (: {putih}')
+        sys.exit()
+    
+    manuk = ["wget","--recursive","--no-clobber","--page-requisites","--html-extension","--convert-links","--restrict-file-names=windows","--no-parent","-erobots=off",url]
+    subprocess.call(manuk)
+
+     
+def main():
+    parser = argparse.ArgumentParser(description="Copy-Web by adyfas Ganteng (:")
+    parser.add_argument("--wasu", dest="url", help="Jadi tuh gini jadinya nya tuh anunya itu jadi ini ya udah jadi ini gitu anunya tuh gitu....")
+    parser.add_argument("--kabeh", dest="file", help="File.txt yang berisi URL-URL")
+    parser.add_argument("--langsung", dest="path", help="Direktori tempat file.txt berada misalkan file.txt kamu di direktori system/file/file.txt gitu yaa paham yaa")
     args = parser.parse_args()
 
-    konten_web = dapatkan_konten_web(args.website)
-    header_keamanan = dapatkan_header_keamanan(args.website)
+    if not banternet():
+        wasu(f'{merah}Elu Kaga Ada Akses Internet Cuuyyyy Coba Sambungin Dulu Terus Jalanin Lagi Ya Asu (: {putih}')
+        sys.exit()
 
-    print("Konten Web, bro:")
-    print(konten_web)
-
-    print("\nHeader Keamanan, kekinian banget:")
-    print(header_keamanan)
-
-    soup = BeautifulSoup(konten_web, 'html.parser')
-    konten_html = soup.prettify()
-    nama_file_html = "output.html"
-    simpan_ke_file(konten_html, nama_file_html)
-    print(f"\nHTML disimpan di: {nama_file_html}")
-    nama_file_css = "output.css"
-    konten_css = '\n'.join([tag_style.text for tag_style in soup.find_all('style')])
-    simpan_ke_file(konten_css, nama_file_css)
-    print(f"CSS disimpan di: {nama_file_css}")
-    nama_file_js = "output.js"
-    konten_js = '\n'.join([tag_script.text for tag_script in soup.find_all('script')])
-    simpan_ke_file(konten_js, nama_file_js)
-    print(f"JavaScript disimpan di: {nama_file_js}")
-    
-    alamat_ip = socket.gethostbyname(args.website.split('//')[1].split('/')[0])
-    print(f"\nAlamat IP: {alamat_ip}")
-    info_ip = dapatkan_info_ip(alamat_ip)
-    tampilkan_info_ip(info_ip)
+   
+    if args.url:
+        title = judul(args.url)
+        if title:
+            print('-'*15)
+            print(f"\n\n{biru}ouh ini nama halamannya:{putih}", title, "\n")
+            kirik(args.url)
+    elif args.file:
+        if os.path.exists(args.file):
+            with open(args.file, 'r') as f:
+                for line in f:
+                    url = line.strip()
+                    title = judul(url)
+                    if title:
+                        print('-'*15)
+                        print(f"\n\n{biru}ouh ini nama halamannya:{putih}", title, "\n")
+                        kirik(url)
+        else:
+            wasu(f"{merah}File '{args.file}' Waduhh Kamu ini tuh coba tulis nama filenya yang bener coyyyy{putih}")
+    elif args.path:
+        file_path = os.path.join(args.path, 'file.txt')
+        if os.path.exists(file_path):
+            with open(file_path, 'r') as f:
+                for line in f:
+                    url = line.strip()
+                    title = judul(url)
+                    if title:
+                        print('-'*25)
+                        print(f"\n\n{biru}ouh ini nama halamannya:{putih}", title, "\n")
+                        kirik(url)
+        else:
+            wasu(f"{merah}File '{file_path}' jihh GJ anda ini coba deh cek lagi itu pasti ada yang salah coyyy{putih}")
+    else:
+        parser.print_help()
 
 if __name__ == "__main__":
-    utama()
+    modules()
+    main()
