@@ -1,9 +1,9 @@
-**Copy-Web by adyfas Ganteng (:**
+**CopyCode by adyfas Ganteng (:**
 
 Sup bro! Ini dia dokumentasi keren untuk **Copy-Web by adyfas Ganteng (:**
 
-### Apa Itu Copy-Web?
-Copy-Web adalah alat super yang diciptakan oleh adyfas Ganteng untuk mengambil halaman web dengan mudah dan menampilkan judulnya. Kamu bisa langsung mengunduh satu URL, atau bahkan berkas teks berisi daftar URL untuk diunduh secara otomatis. Keren, kan?
+### Apa Itu CopyCode?
+CopyCode adalah alat super yang diciptakan oleh adyfas Ganteng untuk mengambil halaman web dengan mudah dan menampilkan judulnya. Kamu bisa langsung mengunduh satu URL, atau bahkan berkas teks berisi daftar URL untuk diunduh secara otomatis. Keren, kan?
 
 ### Cara install
 Buka terminal kalian semua!! lalu ketik
@@ -41,10 +41,10 @@ python main.py --langsung <direktori/berkas>
 Untuk mengunduh daftar URL dari berkas teks yang ada di direktori tertentu.
 
 ### Persyaratan
-Pastikan kamu sudah menginstal semua modul yang diperlukan sebelum menggunakan alat Copy-Web. Kalau belum, Copy-Web akan menginstalnya sendiri kok! Gak usah khawatir!
+Pastikan kamu sudah menginstal semua modul yang diperlukan sebelum menggunakan alat CopyCode. Kalau belum, CopyCode akan menginstalnya sendiri kok! Gak usah khawatir!
 
 ### Keren, Kan?
-Yap, itulah dia! Copy-Web, alat super keren buatan adyfas Ganteng untuk mengambilhalaman web dan menampilkan judulnya dengan mudah. Gak perlu repot lagi buka browser!
+Yap, itulah dia! CopyCode, alat super keren buatan adyfas Ganteng untuk mengambilhalaman web dan menampilkan judulnya dengan mudah. Gak perlu repot lagi buka browser!
 
  
  ## Lisensi
